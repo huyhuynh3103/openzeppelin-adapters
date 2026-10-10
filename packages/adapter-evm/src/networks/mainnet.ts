@@ -1,30 +1,16 @@
-import {
-  NetworkArbitrumOne,
-  NetworkAvalanche,
-  NetworkBase,
-  NetworkBinanceSmartChain,
-  NetworkEthereum,
-  NetworkLinea,
-  NetworkOptimism,
-  NetworkPolygon,
-  NetworkScroll,
-  NetworkZksync,
-} from '@web3icons/react';
+import { NetworkArbitrumOne, NetworkBase, NetworkEthereum } from '@web3icons/react';
 import {
   arbitrum as viemArbitrum,
-  avalanche as viemAvalanche,
   base as viemBase,
-  bsc as viemBsc,
-  linea as viemLinea,
   mainnet as viemMainnet,
-  optimism as viemOptimism,
-  polygon as viemPolygon,
-  polygonZkEvm as viemPolygonZkEvm,
-  scroll as viemScroll,
-  zksync as viemZkSync,
+  rise as viemRise,
 } from 'viem/chains';
 
 import type { TypedEvmNetworkConfig } from '@openzeppelin/adapter-evm-core';
+
+// TODO(rise): replace with the real staging and shadow endpoints before shipping.
+const RISE_STAGING_RPC_URL = 'https://REPLACE-ME.rise-staging.invalid';
+const RISE_SHADOW_RPC_URL = 'https://REPLACE-ME.rise-shadow.invalid';
 
 export const ethereumMainnet: TypedEvmNetworkConfig = {
   id: 'ethereum-mainnet',
@@ -79,54 +65,6 @@ export const arbitrumMainnet: TypedEvmNetworkConfig = {
   accessControlIndexerUrl: 'https://openzeppelin-arbitrum-mainnet.graphql.subquery.network',
 };
 
-export const polygonMainnet: TypedEvmNetworkConfig = {
-  id: 'polygon-mainnet',
-  exportConstName: 'polygonMainnet',
-  name: 'Polygon',
-  ecosystem: 'evm',
-  network: 'polygon',
-  type: 'mainnet',
-  isTestnet: false,
-  chainId: 137,
-  rpcUrl: viemPolygon.rpcUrls.default.http[0],
-  explorerUrl: 'https://polygonscan.com',
-  apiUrl: 'https://api.etherscan.io/v2/api',
-  primaryExplorerApiIdentifier: 'etherscan-v2',
-  supportsEtherscanV2: true,
-  iconComponent: NetworkPolygon,
-  nativeCurrency: {
-    name: 'MATIC',
-    symbol: 'MATIC',
-    decimals: 18,
-  },
-  viemChain: viemPolygon,
-  accessControlIndexerUrl: 'https://openzeppelin-polygon-mainnet.graphql.subquery.network',
-};
-
-export const polygonZkEvmMainnet: TypedEvmNetworkConfig = {
-  id: 'polygon-zkevm-mainnet',
-  exportConstName: 'polygonZkEvmMainnet',
-  name: 'Polygon zkEVM',
-  ecosystem: 'evm',
-  network: 'polygon-zkevm',
-  type: 'mainnet',
-  isTestnet: false,
-  chainId: 1101,
-  rpcUrl: viemPolygonZkEvm.rpcUrls.default.http[0],
-  explorerUrl: 'https://zkevm.polygonscan.com',
-  apiUrl: 'https://api.etherscan.io/v2/api',
-  primaryExplorerApiIdentifier: 'etherscan-v2',
-  supportsEtherscanV2: true,
-  iconComponent: NetworkPolygon,
-  nativeCurrency: {
-    name: 'Ether',
-    symbol: 'ETH',
-    decimals: 18,
-  },
-  viemChain: viemPolygonZkEvm,
-  accessControlIndexerUrl: 'https://polygon-zkevm.indexer.pasevin.com',
-};
-
 export const baseMainnet: TypedEvmNetworkConfig = {
   id: 'base-mainnet',
   exportConstName: 'baseMainnet',
@@ -151,149 +89,62 @@ export const baseMainnet: TypedEvmNetworkConfig = {
   accessControlIndexerUrl: 'https://openzeppelin-base-mainnet.graphql.subquery.network',
 };
 
-export const bscMainnet: TypedEvmNetworkConfig = {
-  id: 'bsc-mainnet',
-  exportConstName: 'bscMainnet',
-  name: 'BNB Smart Chain',
+export const riseMainnet: TypedEvmNetworkConfig = {
+  id: 'rise-mainnet',
+  exportConstName: 'riseMainnet',
+  name: 'RISE',
   ecosystem: 'evm',
-  network: 'bsc',
+  network: 'rise',
   type: 'mainnet',
   isTestnet: false,
-  chainId: 56,
-  rpcUrl: viemBsc.rpcUrls.default.http[0],
-  explorerUrl: 'https://bscscan.com',
-  apiUrl: 'https://api.etherscan.io/v2/api',
-  primaryExplorerApiIdentifier: 'etherscan-v2',
-  supportsEtherscanV2: true,
-  iconComponent: NetworkBinanceSmartChain,
-  nativeCurrency: {
-    name: 'BNB',
-    symbol: 'BNB',
-    decimals: 18,
-  },
-  viemChain: viemBsc,
-  accessControlIndexerUrl: 'https://bsc.indexer.pasevin.com',
-};
-
-export const optimismMainnet: TypedEvmNetworkConfig = {
-  id: 'optimism-mainnet',
-  exportConstName: 'optimismMainnet',
-  name: 'OP Mainnet',
-  ecosystem: 'evm',
-  network: 'optimism',
-  type: 'mainnet',
-  isTestnet: false,
-  chainId: 10,
-  rpcUrl: viemOptimism.rpcUrls.default.http[0],
-  explorerUrl: 'https://optimistic.etherscan.io',
-  apiUrl: 'https://api.etherscan.io/v2/api',
-  primaryExplorerApiIdentifier: 'etherscan-v2',
-  supportsEtherscanV2: true,
-  iconComponent: NetworkOptimism,
-  nativeCurrency: {
-    name: 'Ether',
-    symbol: 'ETH',
-    decimals: 18,
-  },
-  viemChain: viemOptimism,
-  accessControlIndexerUrl: 'https://openzeppelin-optimism-mainnet.graphql.subquery.network',
-};
-
-export const avalancheMainnet: TypedEvmNetworkConfig = {
-  id: 'avalanche-mainnet',
-  exportConstName: 'avalancheMainnet',
-  name: 'Avalanche C-Chain',
-  ecosystem: 'evm',
-  network: 'avalanche',
-  type: 'mainnet',
-  isTestnet: false,
-  chainId: 43114,
-  rpcUrl: viemAvalanche.rpcUrls.default.http[0],
-  explorerUrl: 'https://snowscan.xyz',
-  apiUrl: 'https://api.etherscan.io/v2/api',
-  primaryExplorerApiIdentifier: 'etherscan-v2',
-  supportsEtherscanV2: true,
-  iconComponent: NetworkAvalanche,
-  nativeCurrency: {
-    name: 'Avalanche',
-    symbol: 'AVAX',
-    decimals: 18,
-  },
-  viemChain: viemAvalanche,
-  accessControlIndexerUrl: 'https://avalanche.indexer.pasevin.com',
-};
-
-// TODO: test and setup the api and explorer config
-export const zkSyncEraMainnet: TypedEvmNetworkConfig = {
-  id: 'zksync-era-mainnet',
-  exportConstName: 'zkSyncEraMainnet',
-  name: 'ZkSync Era',
-  ecosystem: 'evm',
-  network: 'zksync-era',
-  type: 'mainnet',
-  isTestnet: false,
-  chainId: 324,
-  rpcUrl: viemZkSync.rpcUrls.default.http[0],
-  explorerUrl: 'https://explorer.zksync.io',
-  apiUrl: 'https://block-explorer-api.mainnet.zksync.io/api',
-  primaryExplorerApiIdentifier: 'zksync-era-mainnet',
+  chainId: 4153,
+  rpcUrl: viemRise.rpcUrls.default.http[0],
+  explorerUrl: 'https://explorer.risechain.com',
+  // Blockscout speaks the Etherscan V1 protocol on /api, and serves it without an API key.
+  apiUrl: 'https://explorer.risechain.com/api',
+  primaryExplorerApiIdentifier: 'rise-mainnet',
   supportsEtherscanV2: false,
-  iconComponent: NetworkZksync,
+  requiresExplorerApiKey: false,
   nativeCurrency: {
     name: 'Ether',
     symbol: 'ETH',
     decimals: 18,
   },
-  viemChain: viemZkSync,
-  accessControlIndexerUrl: 'https://zksync-era.indexer.pasevin.com',
+  viemChain: viemRise,
 };
 
-export const scrollMainnet: TypedEvmNetworkConfig = {
-  id: 'scroll-mainnet',
-  exportConstName: 'scrollMainnet',
-  name: 'Scroll',
-  ecosystem: 'evm',
-  network: 'scroll',
-  type: 'mainnet',
-  isTestnet: false,
-  chainId: 534352,
-  rpcUrl: viemScroll.rpcUrls.default.http[0],
-  explorerUrl: 'https://scrollscan.com',
-  apiUrl: 'https://api.etherscan.io/v2/api',
-  primaryExplorerApiIdentifier: 'etherscan-v2',
-  supportsEtherscanV2: true,
-  iconComponent: NetworkScroll,
-  nativeCurrency: {
-    name: 'Ether',
-    symbol: 'ETH',
-    decimals: 18,
+/**
+ * Staging and shadow are mainnet: same chain id, same deployed addresses, reached over a
+ * different RPC. The chain id stays 4153 because it is part of the signature domain, so wagmi
+ * dedupes all three down to the single `riseMainnet` chain entry. `type: 'devnet'` is what keeps
+ * them out of the Mainnet group in the network picker.
+ */
+export const riseStaging: TypedEvmNetworkConfig = {
+  ...riseMainnet,
+  id: 'rise-staging',
+  exportConstName: 'riseStaging',
+  name: 'RISE Staging',
+  type: 'devnet',
+  rpcUrl: RISE_STAGING_RPC_URL,
+  primaryExplorerApiIdentifier: 'rise-staging',
+  viemChain: {
+    ...viemRise,
+    name: 'RISE Staging',
+    rpcUrls: { default: { http: [RISE_STAGING_RPC_URL] } },
   },
-  viemChain: viemScroll,
-  accessControlIndexerUrl: 'https://scroll.indexer.pasevin.com',
 };
 
-export const lineaMainnet: TypedEvmNetworkConfig = {
-  id: 'linea-mainnet',
-  exportConstName: 'lineaMainnet',
-  name: 'Linea',
-  ecosystem: 'evm',
-  network: 'linea',
-  type: 'mainnet',
-  isTestnet: false,
-  chainId: 59144,
-  rpcUrl: viemLinea.rpcUrls.default.http[0],
-  explorerUrl: 'https://lineascan.build',
-  apiUrl: 'https://api.etherscan.io/v2/api',
-  primaryExplorerApiIdentifier: 'etherscan-v2',
-  supportsEtherscanV2: true,
-  iconComponent: NetworkLinea,
-  nativeCurrency: {
-    name: 'Ether',
-    symbol: 'ETH',
-    decimals: 18,
+export const riseShadow: TypedEvmNetworkConfig = {
+  ...riseMainnet,
+  id: 'rise-shadow',
+  exportConstName: 'riseShadow',
+  name: 'RISE Shadow',
+  type: 'devnet',
+  rpcUrl: RISE_SHADOW_RPC_URL,
+  primaryExplorerApiIdentifier: 'rise-shadow',
+  viemChain: {
+    ...viemRise,
+    name: 'RISE Shadow',
+    rpcUrls: { default: { http: [RISE_SHADOW_RPC_URL] } },
   },
-  viemChain: viemLinea,
-  accessControlIndexerUrl: 'https://linea.indexer.pasevin.com',
 };
-
-// TODO: Add other EVM mainnet networks with their public RPCs and viemChain objects

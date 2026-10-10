@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { createNameResolution } from '../capabilities';
-import { ethereumSepolia } from '../networks';
+import { riseTestnet } from '../networks';
 import { createRuntime } from '../profiles/shared';
 
 const walletState = { address: undefined as string | undefined };
@@ -158,7 +158,7 @@ describe('EVM profile runtimes', () => {
   });
 
   it('shares runtime wallet state across wallet, execution, and access-control capabilities', async () => {
-    const runtime = createRuntime('operator', ethereumSepolia);
+    const runtime = createRuntime('operator', riseTestnet);
 
     expect(runtime.execution?.validateExecutionConfig({})).toBe(false);
 
@@ -175,7 +175,7 @@ describe('EVM profile runtimes', () => {
   }, 30000);
 
   it('reuses the runtime contract-loading capability for query composition', async () => {
-    const runtime = createRuntime('viewer', ethereumSepolia);
+    const runtime = createRuntime('viewer', riseTestnet);
 
     await runtime.query!.queryViewFunction('0x1234', 'balanceOf', []);
 
@@ -186,12 +186,12 @@ describe('EVM profile runtimes', () => {
   it('threads enableMainnetL1MissFallback from CreateRuntimeOptions into createNameResolution', () => {
     vi.mocked(createNameResolution).mockClear();
 
-    createRuntime('viewer', ethereumSepolia, {
+    createRuntime('viewer', riseTestnet, {
       nameResolution: { enableMainnetL1MissFallback: true },
     });
 
     expect(createNameResolution).toHaveBeenCalledWith(
-      ethereumSepolia,
+      riseTestnet,
       expect.objectContaining({ enableMainnetL1MissFallback: true })
     );
   });
@@ -199,7 +199,7 @@ describe('EVM profile runtimes', () => {
   it('omits enableMainnetL1MissFallback when runtime options do not opt in', () => {
     vi.mocked(createNameResolution).mockClear();
 
-    createRuntime('viewer', ethereumSepolia);
+    createRuntime('viewer', riseTestnet);
 
     const [, options] = vi.mocked(createNameResolution).mock.calls.at(-1) ?? [];
     expect(options).not.toHaveProperty('enableMainnetL1MissFallback');

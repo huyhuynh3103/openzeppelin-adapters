@@ -6,7 +6,7 @@ import {
   findRestrictedDependencies,
 } from '../../../../tests/helpers/tierIsolation';
 import * as capabilities from '../capabilities';
-import { ethereumSepolia } from '../networks';
+import { riseTestnet } from '../networks';
 import { createRuntime } from '../profiles/shared';
 
 const packageRoot = process.cwd();
@@ -122,9 +122,9 @@ describe('EVM Tier 1 isolation', () => {
     const trackedFactories = spyOnDeferredFactories();
 
     try {
-      const runtime = createRuntime('declarative', ethereumSepolia);
+      const runtime = createRuntime('declarative', riseTestnet);
 
-      expect(runtime.networkConfig).toBe(ethereumSepolia);
+      expect(runtime.networkConfig).toBe(riseTestnet);
       expect(runtime.addressing).toBeDefined();
       expect(runtime.explorer).toBeDefined();
       expect(runtime.networkCatalog).toBeDefined();

@@ -32,7 +32,7 @@ overrides:
   '@wagmi/core': ^2.20.3
   glob: ^11.1.0
   zod: ^3.25.76
-  viem: 2.44.4
+  viem: 2.47.10
   '@midnight-ntwrk/midnight-js-contracts': 2.0.2
   '@midnight-ntwrk/midnight-js-http-client-proof-provider': 2.0.2
   '@midnight-ntwrk/midnight-js-indexer-public-data-provider': 2.0.2

@@ -1,6 +1,8 @@
 # EVM Adapter (`@openzeppelin/adapter-evm`)
 
-This package provides the `ContractAdapter` implementation for EVM-compatible blockchains (Ethereum, Polygon, BSC, etc.) for the UI Builder.
+This package provides the `ContractAdapter` implementation for EVM-compatible blockchains for the UI Builder.
+
+This is the RISE fork: it carries Ethereum, Arbitrum One, Base and the four RISE environments, and nothing else.
 
 It is responsible for:
 // ... (existing responsibilities) ...
@@ -53,7 +55,7 @@ To add a new EVM network:
 
 ## Network Configurations
 
-Network configurations for various EVM chains (mainnets and testnets) are exported from `src/networks/index.ts` within this package (e.g., `ethereumMainnet`, `polygonMainnet`, `ethereumSepolia`, `polygonAmoy`). Each `EvmNetworkConfig` includes:
+Network configurations are exported from `src/networks/index.ts` within this package: `ethereumMainnet`, `arbitrumMainnet`, `baseMainnet`, `riseMainnet`, `riseStaging`, `riseShadow` and `riseTestnet`. Each `EvmNetworkConfig` includes:
 
 - `id`: A unique string identifier for the network (e.g., "ethereum-mainnet")
 - `name`: Display name for the network

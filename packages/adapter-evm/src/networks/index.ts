@@ -2,64 +2,28 @@ import type { TypedEvmNetworkConfig } from '@openzeppelin/adapter-evm-core';
 
 import {
   arbitrumMainnet,
-  avalancheMainnet,
   baseMainnet,
-  bscMainnet,
   ethereumMainnet,
-  lineaMainnet,
-  optimismMainnet,
-  polygonMainnet,
-  polygonZkEvmMainnet,
-  scrollMainnet,
-  zkSyncEraMainnet,
+  riseMainnet,
+  riseShadow,
+  riseStaging,
 } from './mainnet';
-import {
-  arbitrumSepolia,
-  avalancheFuji,
-  baseSepolia,
-  bscTestnet,
-  ethereumSepolia,
-  lineaSepolia,
-  monadTestnet,
-  optimismSepolia,
-  polygonAmoy,
-  polygonZkEvmCardona,
-  scrollSepolia,
-  zksyncSepoliaTestnet,
-} from './testnet';
+import { riseTestnet } from './testnet';
 
-// All mainnet networks
+// All mainnet networks.
+// `riseMainnet` must precede `riseStaging`/`riseShadow`: all three are chain 4153, and the wagmi
+// integration dedupes `viemChain` by id keeping the first, so mainnet is the entry wallets see.
 export const evmMainnetNetworks: TypedEvmNetworkConfig[] = [
   ethereumMainnet,
   arbitrumMainnet,
   baseMainnet,
-  polygonMainnet,
-  polygonZkEvmMainnet,
-  bscMainnet,
-  optimismMainnet,
-  avalancheMainnet,
-  lineaMainnet,
-  scrollMainnet,
-  zkSyncEraMainnet,
-  // Other mainnet networks...
+  riseMainnet,
+  riseStaging,
+  riseShadow,
 ];
 
 // All testnet networks
-export const evmTestnetNetworks: TypedEvmNetworkConfig[] = [
-  ethereumSepolia,
-  arbitrumSepolia,
-  baseSepolia,
-  polygonAmoy,
-  polygonZkEvmCardona,
-  bscTestnet,
-  optimismSepolia,
-  avalancheFuji,
-  lineaSepolia,
-  scrollSepolia,
-  zksyncSepoliaTestnet,
-  monadTestnet,
-  // Other testnet networks...
-];
+export const evmTestnetNetworks: TypedEvmNetworkConfig[] = [riseTestnet];
 
 // All EVM networks
 // NOTE: The wagmi integration automatically uses all networks defined here that have a `viemChain` property.
@@ -72,25 +36,9 @@ export {
   ethereumMainnet,
   arbitrumMainnet,
   baseMainnet,
-  polygonMainnet,
-  polygonZkEvmMainnet,
-  bscMainnet,
-  optimismMainnet,
-  avalancheMainnet,
-  lineaMainnet,
-  scrollMainnet,
-  zkSyncEraMainnet,
+  riseMainnet,
+  riseStaging,
+  riseShadow,
   // Testnet networks
-  ethereumSepolia,
-  arbitrumSepolia,
-  baseSepolia,
-  polygonAmoy,
-  polygonZkEvmCardona,
-  bscTestnet,
-  optimismSepolia,
-  avalancheFuji,
-  lineaSepolia,
-  scrollSepolia,
-  zksyncSepoliaTestnet,
-  monadTestnet,
+  riseTestnet,
 };
