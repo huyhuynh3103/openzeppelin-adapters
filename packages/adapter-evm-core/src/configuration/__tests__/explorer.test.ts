@@ -452,6 +452,33 @@ describe('testEvmExplorerConnection', () => {
     expect(result.error).toBe('Invalid API Key');
   });
 
+  it('re-probes the block module when the explorer answers 400 to the proxy module', async () => {
+    // Blockscout, which RISE runs, does not implement the Etherscan `proxy` module.
+    const config: UserExplorerConfig = {
+      apiUrl: 'https://explorer.testnet.riselabs.xyz/api',
+      apiKey: 'test-key',
+      isCustom: true,
+    };
+
+    mockFetch.mockClear();
+    mockFetch
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 400,
+        statusText: 'Bad Request',
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({ jsonrpc: '2.0', result: '0x35f2bdc', id: 1 }),
+      });
+
+    const result = await testEvmExplorerConnection(config);
+    expect(result.success).toBe(true);
+    expect(mockFetch.mock.calls[0][0]).toContain('module=proxy');
+    expect(mockFetch.mock.calls[1][0]).toContain('module=block');
+  });
+
   it('should handle fetch errors', async () => {
     const config: UserExplorerConfig = {
       apiUrl: 'https://api.etherscan.io/api',

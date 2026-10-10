@@ -277,16 +277,26 @@ export async function testEvmExplorerConnection(
 
   const startTime = Date.now();
 
-  try {
-    // Test with a simple API call - get the latest block number
-    const url = new URL(apiUrl);
-    url.searchParams.append('module', 'proxy');
-    url.searchParams.append('action', 'eth_blockNumber');
+  // Etherscan serves the block number under the `proxy` module. Blockscout does not implement
+  // that module and answers 400 "Unknown module", so that one status re-probes under `block`.
+  // Every other failure is reported as-is, so a bad API key still reads as a bad API key.
+  const resolvedApiUrl = apiUrl;
+  const probe = (module: string, action: string): Promise<Response> => {
+    const url = new URL(resolvedApiUrl);
+    url.searchParams.append('module', module);
+    url.searchParams.append('action', action);
     if (explorerConfig.apiKey) {
       url.searchParams.append('apikey', explorerConfig.apiKey);
     }
+    return fetch(url.toString());
+  };
 
-    const response = await fetch(url.toString());
+  try {
+    let response = await probe('proxy', 'eth_blockNumber');
+    if (response.status === 400) {
+      response = await probe('block', 'eth_block_number');
+    }
+
     const latency = Date.now() - startTime;
 
     if (!response.ok) {
