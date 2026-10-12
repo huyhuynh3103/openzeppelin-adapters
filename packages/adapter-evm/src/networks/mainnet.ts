@@ -8,8 +8,13 @@ import {
 
 import type { TypedEvmNetworkConfig } from '@openzeppelin/adapter-evm-core';
 
-// Archive node: the builder reads historical state, which the default public endpoint prunes.
-const RISE_MAINNET_RPC_URL = 'https://archive.rpc.risechain.com';
+// The builder runs in a browser, so an RPC is only usable here if it answers a CORS preflight.
+// `archive.rpc.risechain.com` holds the full history but answers 405 with no CORS headers, so
+// mainnet defaults to the public endpoint; point `rpcEndpoints['rise-mainnet']` at the archive
+// node once it allows browser origins.
+const RISE_MAINNET_RPC_URL = 'https://rpc.risechain.com';
+
+// Neither shadow fork sends CORS headers today, so both are browser-blocked until they do.
 const RISE_STAGING_RPC_URL = 'https://shadow-fork-l2.riselabs.xyz';
 const RISE_SHADOW_RPC_URL = 'https://shadow-rpc.riselabs.xyz';
 
