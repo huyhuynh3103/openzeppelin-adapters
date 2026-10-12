@@ -8,9 +8,10 @@ import {
 
 import type { TypedEvmNetworkConfig } from '@openzeppelin/adapter-evm-core';
 
-// TODO(rise): replace with the real staging and shadow endpoints before shipping.
-const RISE_STAGING_RPC_URL = 'https://REPLACE-ME.rise-staging.invalid';
-const RISE_SHADOW_RPC_URL = 'https://REPLACE-ME.rise-shadow.invalid';
+// Archive node: the builder reads historical state, which the default public endpoint prunes.
+const RISE_MAINNET_RPC_URL = 'https://archive.rpc.risechain.com';
+const RISE_STAGING_RPC_URL = 'https://shadow-fork-l2.riselabs.xyz';
+const RISE_SHADOW_RPC_URL = 'https://shadow-rpc.riselabs.xyz';
 
 export const ethereumMainnet: TypedEvmNetworkConfig = {
   id: 'ethereum-mainnet',
@@ -98,7 +99,7 @@ export const riseMainnet: TypedEvmNetworkConfig = {
   type: 'mainnet',
   isTestnet: false,
   chainId: 4153,
-  rpcUrl: viemRise.rpcUrls.default.http[0],
+  rpcUrl: RISE_MAINNET_RPC_URL,
   explorerUrl: 'https://explorer.risechain.com',
   // Blockscout speaks the Etherscan V1 protocol on /api, and serves it without an API key.
   apiUrl: 'https://explorer.risechain.com/api',
@@ -110,7 +111,7 @@ export const riseMainnet: TypedEvmNetworkConfig = {
     symbol: 'ETH',
     decimals: 18,
   },
-  viemChain: viemRise,
+  viemChain: { ...viemRise, rpcUrls: { default: { http: [RISE_MAINNET_RPC_URL] } } },
 };
 
 /**
