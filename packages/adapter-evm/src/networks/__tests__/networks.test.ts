@@ -11,6 +11,9 @@ describe('evm networks', () => {
       'rise-mainnet',
       'rise-staging',
       'rise-shadow',
+      'ethereum-sepolia',
+      'arbitrum-sepolia',
+      'base-sepolia',
       'rise-testnet',
     ]);
     expect(new Set(evmNetworks.map((n) => n.exportConstName)).size).toBe(evmNetworks.length);

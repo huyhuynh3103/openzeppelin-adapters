@@ -8,7 +8,7 @@ import {
   riseShadow,
   riseStaging,
 } from './mainnet';
-import { riseTestnet } from './testnet';
+import { arbitrumSepolia, baseSepolia, ethereumSepolia, riseTestnet } from './testnet';
 
 // All mainnet networks.
 // `riseMainnet` must precede `riseStaging`/`riseShadow`: all three are chain 4153, and the wagmi
@@ -23,7 +23,12 @@ export const evmMainnetNetworks: TypedEvmNetworkConfig[] = [
 ];
 
 // All testnet networks
-export const evmTestnetNetworks: TypedEvmNetworkConfig[] = [riseTestnet];
+export const evmTestnetNetworks: TypedEvmNetworkConfig[] = [
+  ethereumSepolia,
+  arbitrumSepolia,
+  baseSepolia,
+  riseTestnet,
+];
 
 // All EVM networks
 // NOTE: The wagmi integration automatically uses all networks defined here that have a `viemChain` property.
@@ -40,5 +45,8 @@ export {
   riseStaging,
   riseShadow,
   // Testnet networks
+  ethereumSepolia,
+  arbitrumSepolia,
+  baseSepolia,
   riseTestnet,
 };

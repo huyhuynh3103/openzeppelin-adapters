@@ -64,6 +64,9 @@ export {
   riseMainnet,
   riseStaging,
   riseShadow,
+  ethereumSepolia,
+  arbitrumSepolia,
+  baseSepolia,
   riseTestnet,
 } from './networks';
 
